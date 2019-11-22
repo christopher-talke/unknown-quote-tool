@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "dev": "nodemon node ./bin/www",
     "up": "knex migrate:latest --verbose",
-    "down": "knex migrate:down"
+    "down": "knex migrate:down",
+    "seed": "knex seed:run"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

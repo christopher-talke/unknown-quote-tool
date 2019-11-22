@@ -20,8 +20,7 @@ exports.up = function(knex) {
     table.string('mobileNumber');
     table.enu('accessLevel', ['USER', 'ADMIN', 'GLOBAL']);
     table.boolean('isActive').defaultTo(true);
-    table.timestamp('created_at').defaultTo(knex.fn.now());
-    table.timestamp('updated_at').defaultTo(knex.fn.now());
+    table.timestamps(true, true);
   });
 };
 

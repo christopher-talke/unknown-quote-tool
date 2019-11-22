@@ -3,7 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const userRouter = require('./routes/users');
+const userRoutes = require('./routes/user_routes');
 
 const app = express();
 
@@ -13,6 +13,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/v1/user', userRouter);
+app.use('/api/v1/user', userRoutes);
 
 module.exports = app;
