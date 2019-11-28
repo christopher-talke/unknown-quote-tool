@@ -1,24 +1,15 @@
 exports.up = function(knex) {
   return knex.schema.createTable('users', table => {
-    table
-      .increments('id')
-      .primary()
-      .unsigned();
-    table
-      .string('username')
-      .unique()
-      .index();
+    table.increments('id').primary().unsigned();
+    table.string('username').unique().index();
     table.string('firstName');
     table.string('lastName');
-    table
-      .string('email')
-      .unique()
-      .index();
+    table.string('email').unique().index();
     table.string('password');
     table.string('title');
     table.string('phoneNumber');
     table.string('mobileNumber');
-    table.enu('accessLevel', ['USER', 'ADMIN', 'GLOBAL']);
+    table.enu('accessLevel', ['USER', 'ADMIN', 'GLOBAL']).defaultTo('USER');
     table.boolean('isActive').defaultTo(true);
     table.timestamps(true, true);
   });
