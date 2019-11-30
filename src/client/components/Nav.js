@@ -29,7 +29,7 @@ const Nav = () => (
         {links.map(({ key, href, label }) => (
           <li key={key}>
             <Link href={href}>
-              <a>{label}</a>
+              <a className={label === 'Logout' ? 'logout' : ''}>{label}</a>
             </Link>
           </li>
         ))}
@@ -37,10 +37,6 @@ const Nav = () => (
     </ul>
 
     <style jsx>{`
-      :global(body) {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir, Helvetica, sans-serif;
-      }
       nav {
         text-align: center;
         padding: 15px 0;
@@ -70,8 +66,28 @@ const Nav = () => (
       a {
         color: #111;
         opacity: 0.7;
+        height: 1.5rem;
+        line-height: 1.5rem;
         text-decoration: none;
         font-size: 14px;
+      }
+      a.logout,
+      a.login {
+        border: 1px solid #007aff;
+        background-color: #007aff;
+        color: #fff;
+        height: 1.5rem;
+        border-radius: 2.5px;
+        line-height: 1.5rem;
+        padding: 0 0.75rem;
+        width: auto;
+        transition: all 0.25s;
+      }
+      a.login:hover,
+      a.logout:hover {
+        border: 1px solid #007aff;
+        background-color: #fff;
+        color: #007aff;
       }
     `}</style>
   </nav>

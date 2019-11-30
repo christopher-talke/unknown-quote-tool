@@ -1,9 +1,9 @@
 import React from 'react';
 
-const SearchBar = ({ value, onChange, onSubmit }) => {
+const SearchBar = ({ value, placeholder, onChange }) => {
   return (
     <div>
-      <input value={value} onChange={e => onChange(e.target.value)} />
+      <input value={value} placeholder={placeholder} onChange={e => onChange(e.target.value)} />
       <style jsx>{`
         div {
           background: #fff;
@@ -19,10 +19,14 @@ const SearchBar = ({ value, onChange, onSubmit }) => {
           border: none;
           line-height: 1.3em;
           color: inherit;
-          padding: 0.25rem;
+          padding: 0.25rem 0.5rem;
           width: calc(100% - 7.5px);
           font-weight: 700;
           font-size: 1.142857142857143rem;
+        }
+
+        input::placeholder {
+          opacity: 0.75;
         }
       `}</style>
     </div>

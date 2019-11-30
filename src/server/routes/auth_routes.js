@@ -4,7 +4,7 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
   req.session.uuid = 'adsfasdfasdf34324123432';
   req.session.save();
-  res.redirect('/api/v1/user/all');
+  res.send({ message: 'authenticated' });
 });
 
 router.get('/logout', async (req, res) => {
