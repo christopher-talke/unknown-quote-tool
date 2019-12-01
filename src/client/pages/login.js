@@ -1,29 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import Link from 'next/link';
+import router from 'next/router';
 import axios from 'axios';
+import UserContext from '../context/UserContext';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('ctalke');
+  const [password, setPassword] = useState('password');
+  const [error, setError] = useState(false);
+  const { setUser, setAuthed } = useContext(UserContext);
 
-  const attemptLogin = async (email, password) => {
-    const response = await axios({
-      url: 'http://localhost:3000/api/v1/auth/login',
-      method: 'post',
-      body: {
-        email,
-        password
+  const attemptLogin = async (username, password) => {
+    const endpoint = `http://localhost:3000/api/v1/auth/login`;
+    try {
+      const { data } = await axios({
+        url: endpoint,
+        method: 'post',
+        data: {
+          username,
+          password
+        }
+      });
+      if (data.username !== null) {
+        setAuthed(true);
+        setUser(data);
+        router.push('/');
       }
-    });
+    } catch (e) {
+      setError(true);
+      setTimeout(() => setError(false), 1000 * 10);
+    }
   };
 
   return (
     <main>
       <div className="login-form">
         <h1 className="title">Log in to UQT</h1>
-        <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email Address" />
-        <input value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
-        <button onClick={() => attemptLogin(email, password)}>Login</button>
-        <a>Forgot Password</a>
+        {error && (
+          <div className="error">
+            <span>Your account or password is incorrect. If you don't remember your username or password, try recovering your account.</span>
+          </div>
+        )}
+        <form
+          method="post"
+          onSubmit={e => {
+            e.preventDefault();
+            attemptLogin(username, password);
+          }}
+        >
+          <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" />
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
+          <button type="submit">Login</button>
+        </form>
+        <Link>
+          <a>Recover Account</a>
+        </Link>
       </div>
       <style jsx>{`
         :global(body) {
@@ -39,54 +70,58 @@ const Login = () => {
           flex-direction: column;
         }
 
+        h1 {
+          margin-bottom: ${error ? '0' : 'auto'};
+        }
+
         div.login-form {
-          max-width: 400px;
+          width: 350px;
           height: 300px;
           display: flex;
           flex-direction: column;
           text-align: center;
         }
 
+        div.error {
+          padding: 1rem;
+          font-size: 0.7rem;
+          color: red;
+        }
+
         input {
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Avenir, PingFang SC, Helvetica Neue, Helvetica;
           padding: 0 0.785714285714286rem;
-          display: inline-flex;
-          vertical-align: middle;
-          align-items: center;
           border-radius: 5px;
-          background-color: transparent;
           font-size: 1rem;
+          width: 100%;
           height: 2.642857142857143rem;
           line-height: 1.928571428571429rem;
-          width: auto;
-          outline: 0;
           box-sizing: border-box;
           margin: 4px 10px;
           border: 1px solid #e1e1e1;
-          -webkit-appearance: none;
           transition: border 0.2s ease, color 0.2s ease;
         }
 
         button {
-          text-rendering: geometricPrecision;
           margin: 4px 10px;
-          display: inline-block;
-          padding: 0 1.571428571428571rem;
+          padding: 0 1.5rem;
           border-radius: 5px;
           font-weight: 100;
-          font-size: 0.857142857142857rem;
+          font-size: 0.85rem;
           cursor: pointer;
-          justify-content: center;
           text-transform: uppercase;
-          text-align: center;
-          height: 2.714285714285714rem;
-          line-height: 2.714285714285714rem;
-          width: auto;
+          height: 2.7rem;
+          width: 100%;
+          line-height: 2.7rem;
           transition: border 0.2s, background 0.2s, color 0.2s ease-out;
           background: #000;
           color: #fff;
           border: 1px solid #000;
           margin-bottom: 25px;
+        }
+
+        button:hover {
+          background: none;
+          color: #000;
         }
       `}</style>
     </main>

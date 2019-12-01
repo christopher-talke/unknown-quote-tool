@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const links = [
   { href: '/account', label: 'Account' },
-  { href: '/logout', label: 'Logout' }
+  { href: '/login', label: 'Logout' }
 ].map(link => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;

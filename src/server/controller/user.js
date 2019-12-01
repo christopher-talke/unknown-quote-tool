@@ -2,7 +2,7 @@ const knex = require('../config/database');
 const bcrypt = require('bcrypt');
 const { saltRounds } = require('../config/constants');
 
-const getOneUser = async username => {
+const getOneUser = async (username, removePassword = true) => {
   // Query Database
   let data = await knex('users')
     .where('username', username)
@@ -12,7 +12,9 @@ const getOneUser = async username => {
   // If a username couldn't be found, return an error.
   if (data === undefined) {
     data = { status: 404, message: 'User could not be found' };
-  } else {
+  }
+
+  if (removePassword) {
     delete data.password;
   }
 

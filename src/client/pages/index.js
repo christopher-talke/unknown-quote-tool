@@ -5,14 +5,27 @@ import UserContext from '../context/UserContext';
 
 const Home = () => {
   const [search, setSearch] = useState('');
-  const { user, setUser } = useContext(UserContext);
-
+  const { user, authed } = useContext(UserContext);
   const onChange = newValue => setSearch(newValue);
 
   return (
     <Layout compact>
       <SearchBar value={search} placeholder="Search for a quote..." onChange={onChange} />
-      <style jsx>{``}</style>
+      <span>
+        My name is{' '}
+        {authed ? (
+          <h3>
+            {user.firstName} {user.lastName}
+          </h3>
+        ) : (
+          ``
+        )}
+      </span>
+      <style jsx>{`
+        h3 {
+          display: inline-block;
+        }
+      `}</style>
     </Layout>
   );
 };

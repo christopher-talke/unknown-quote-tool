@@ -77,8 +77,8 @@ Create a local development database, these commands:
 
 ```s
 # This creates the database
-$ docker exec -it 203 psql -U uqt postgres -c "CREATE DATABASE uqt_db_dev"
+$ docker exec -it uqt-db psql -U uqt postgres -c "CREATE DATABASE uqt_db_dev"
 
 # This checks if the database has been created
-$ docker exec -it 203 psql -U uqt postgres -c "\l uqt_db_dev"
+$ docker exec -it uqt-db psql -U uqt postgres -c "\l uqt_db_dev"
 ```
