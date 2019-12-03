@@ -38,7 +38,7 @@ const Home = ({ currentUser }) => {
 
 Home.getInitialProps = async ({ query, res }) => {
   // Try and obtain user at render, only works if logged in and JWT token issued
-  const { data } = await axios(`http://localhost:3000/api/v1/user/${query.user}`);
+  const { data } = await axios(`http://localhost:3000/api/v1/user/${query.user || ''}`);
 
   // If unauthorised or not found, redirect to login
   if (data.status === 401 || data.status === 404) {

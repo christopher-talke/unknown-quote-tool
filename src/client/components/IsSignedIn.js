@@ -12,8 +12,6 @@ const IsSignedIn = props => {
     }
   }, [authed, user]);
 
-  console.log(currentUser);
-
   if (currentUser !== undefined) {
     setUser(currentUser);
     setAuthed(true);

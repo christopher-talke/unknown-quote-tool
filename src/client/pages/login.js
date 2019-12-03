@@ -5,8 +5,8 @@ import axios from 'axios';
 import UserContext from '../context/UserContext';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('ctalke');
+  const [password, setPassword] = useState('password');
   const [error, setError] = useState(false);
   const { setUser, setAuthed } = useContext(UserContext);
 
@@ -25,17 +25,13 @@ const Login = () => {
       if (data.status === 401 || data.status === 404 || data.status === 500) {
         setError(true);
         setTimeout(() => setError(false), 1000 * 10);
-        return;
       }
 
       if (data.username !== undefined) {
         setAuthed(true);
         setUser(data);
-        router.push(`/?user=${username}`);
-        return;
+        router.push(`/`);
       }
-
-      return;
     } catch (e) {
       setError(true);
       setTimeout(() => setError(false), 1000 * 10);
