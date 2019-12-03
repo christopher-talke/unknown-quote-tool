@@ -1,9 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
+import IsSignedIn from '../components/IsSignedIn';
 import Nav from '../components/Nav';
 
-const Layout = ({ title, compact, children }) => (
-  <div>
+const Layout = ({ currentUser, title, compact, children }) => (
+  <IsSignedIn currentUser={currentUser}>
     <Head>
       <title>{title}</title>
       <link rel="icon" href="/favicon.ico" />
@@ -22,7 +23,7 @@ const Layout = ({ title, compact, children }) => (
         max-width: 960px;
       }
     `}</style>
-  </div>
+  </IsSignedIn>
 );
 
 export default Layout;

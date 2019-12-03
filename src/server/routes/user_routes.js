@@ -12,9 +12,18 @@ router.get('/all', async (_, res) => {
 
 // Gets User Data
 router.get('/:username', async (req, res) => {
+  // Temporary Rule
+  if (req.params.username === 'test') {
+    return res.json({ status: 401, message: 'User could not be found' });
+  }
+  // Get User
   let data = await getOneUser(req.params.username);
-  if (data.status === 404) res.status(404);
-  res.json(data);
+  // If could not be found, return this
+  if (data.status === 404) {
+    return res.json(data);
+  }
+  // Else return user
+  return res.json(data);
 });
 
 // Register New User, Requires Admin Access
