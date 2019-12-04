@@ -12,11 +12,6 @@ const ERROR_UNAUTHORISED = {
   error: `Not authorised, please login first!`
 };
 
-const ERROR_USER_NOT_FOUND = {
-  status: 401,
-  message: 'User could not be found'
-};
-
 const verifyToken = async (req, _, next) => {
   // Check for JWT
   const { tkn } = req.cookies;
@@ -29,17 +24,14 @@ const verifyToken = async (req, _, next) => {
   next();
 };
 
-const verifyUser = async (req, _, next) => {
+const verifyUser = async (req, res, next) => {
   // Check for username, handle error
   if (!req.username) {
-    next();
+    res.json(ERROR_UNAUTHORISED);
+    return;
   }
   // Find user
   const user = await getOneUser(req.username);
-  // If user not found, return error
-  if (!user) {
-    next();
-  }
   // Destructure user
   const { password, isActive, ...rest } = user;
   // Attach user to req object

@@ -7,7 +7,7 @@ const IsSignedIn = props => {
   const { currentUser, children } = props;
 
   useEffect(() => {
-    if (!authed && user.username === undefined && currentUser === undefined) {
+    if (!authed && user === {} && currentUser === '') {
       router.push('/login');
     }
   }, [authed, user]);

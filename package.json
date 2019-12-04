@@ -1,0 +1,14 @@
+{
+  "name": "unknown-quote-tool",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/christopher-talke/unknown-quote-tool.git",
+  "author": "Christopher Talke <christopher.talke@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"cd src/client && yarn dev\" \"cd src/server && yarn dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0"
+  }
+}

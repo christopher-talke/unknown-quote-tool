@@ -15,7 +15,7 @@ const Home = ({ currentUser }) => {
   }
 
   return (
-    <Layout compact currentUser={currentUser}>
+    <Layout title="UQT" compact currentUser={currentUser}>
       <SearchBar value={search} placeholder="Search for a quote..." onChange={newValue => setSearch(newValue)} />
       <style jsx>{`
         h3 {
@@ -27,24 +27,25 @@ const Home = ({ currentUser }) => {
 };
 
 Home.getInitialProps = async ({ req, res }) => {
-  // Try and obtain user at render, only works if logged in and JWT token issued
-  const { data } = await axios(`http://localhost:3000/api/v1/user/`, {
-    withCredentials: true,
-    headers: req.headers
-  });
-
-  console.log(data);
-
-  // If unauthorised or not found, redirect to login
-  if (data.status === 401 || data.status === 404) {
-    res.writeHead(302, {
-      Location: '/login'
+  if (req !== undefined) {
+    // Try and obtain user at render, only works if logged in and JWT token issued
+    const { data } = await axios(`http://localhost:3000/api/v1/user/`, {
+      withCredentials: true,
+      headers: req.headers || ''
     });
-    res.end();
-  }
 
-  // If user populates, feed props into parent page
-  return { currentUser: data };
+    // If unauthorised or not found, redirect to login
+    if (data.status === 401 || data.status === 404) {
+      res.writeHead(302, {
+        Location: '/login'
+      });
+      res.end();
+    }
+
+    // If user populates, feed props into parent page
+    return { currentUser: data };
+  }
+  return {};
 };
 
 export default Home;

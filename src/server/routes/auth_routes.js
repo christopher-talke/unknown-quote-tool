@@ -22,10 +22,9 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/logout', async (_, res) => {
-  // Clear Cookie
   res.clearCookie('tkn');
-  res.json({
-    message: 'Logged out'
+  res.status(200).json({
+    message: 'true'
   });
 });
 
