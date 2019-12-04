@@ -61,4 +61,4 @@ typings/
 .next
 
 #configs
-*/knexfile.js
+src/server/knexfile.js

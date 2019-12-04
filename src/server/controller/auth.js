@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { getOneUser } = require('./user');
 
 const ERROR_INCORRECT = {
@@ -16,20 +17,19 @@ const ERROR_USER_NOT_FOUND = {
   message: 'User could not be found'
 };
 
-const verifyToken = async (req, res, next) => {
+const verifyToken = async (req, _, next) => {
   // Check for JWT
   const { tkn } = req.cookies;
-  console.log(req.signedCookies);
   // Verify token and attach to req object
   if (tkn) {
-    const { username } = jwt.verify(tkn, 'CAT');
+    const { username } = jwt.verify(tkn, 'CATS');
     req.username = username;
   }
   // Finish Middleware
   next();
 };
 
-const verifyUser = async (req, res, next) => {
+const verifyUser = async (req, _, next) => {
   // Check for username, handle error
   if (!req.username) {
     next();

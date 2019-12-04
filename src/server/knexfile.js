@@ -5,9 +5,9 @@ module.exports = {
     client: 'pg',
     connection: {
       host: '127.0.0.1',
-      user: 'postgres',
-      password: '',
-      database: 'postgres'
+      user: 'uqt',
+      password: 'uqt-psql-db',
+      database: 'uqt_db_dev'
     },
     migrations: {
       tableName: 'uqt_migrations',

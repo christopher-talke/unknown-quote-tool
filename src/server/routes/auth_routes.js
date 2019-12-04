@@ -16,7 +16,6 @@ router.post('/login', async (req, res) => {
   // Create Cookie
   res.cookie('tkn', token, {
     httpOnly: true,
-    domain: 'localhost:8080',
     maxAge: 432000000 // 5 Days
   });
   res.status(200).json(data);

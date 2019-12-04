@@ -6,10 +6,10 @@ import UserContext from '../context/UserContext';
 
 const Home = ({ currentUser }) => {
   const [search, setSearch] = useState('');
-  const { user, authed, setUser, setAuthed } = useContext(UserContext);
+  const { setUser, setAuthed } = useContext(UserContext);
 
   // If username could be obtained at pre-render, feed into context
-  if (currentUser.username !== undefined) {
+  if (currentUser !== '') {
     setUser(currentUser);
     setAuthed(true);
   }
@@ -17,16 +17,6 @@ const Home = ({ currentUser }) => {
   return (
     <Layout compact currentUser={currentUser}>
       <SearchBar value={search} placeholder="Search for a quote..." onChange={newValue => setSearch(newValue)} />
-      <span>
-        My name is{' '}
-        {authed ? (
-          <h3>
-            {user.firstName} {user.lastName}
-          </h3>
-        ) : (
-          ``
-        )}
-      </span>
       <style jsx>{`
         h3 {
           display: inline-block;
@@ -36,9 +26,14 @@ const Home = ({ currentUser }) => {
   );
 };
 
-Home.getInitialProps = async ({ query, res }) => {
+Home.getInitialProps = async ({ req, res }) => {
   // Try and obtain user at render, only works if logged in and JWT token issued
-  const { data } = await axios(`http://localhost:3000/api/v1/user/${query.user || ''}`);
+  const { data } = await axios(`http://localhost:3000/api/v1/user/`, {
+    withCredentials: true,
+    headers: req.headers
+  });
+
+  console.log(data);
 
   // If unauthorised or not found, redirect to login
   if (data.status === 401 || data.status === 404) {

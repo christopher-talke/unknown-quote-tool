@@ -10,7 +10,7 @@ const userRoutes = require('./routes/user_routes');
 const app = express();
 
 app.use(logger('dev'));
-app.use(cors({ credentials: true }));
+app.use(cors({ credentials: true, origin: 'http://localhost:8080' }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

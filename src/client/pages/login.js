@@ -15,6 +15,7 @@ const Login = () => {
     try {
       const { data } = await axios({
         url: endpoint,
+        withCredentials: true,
         method: 'post',
         data: {
           username,
@@ -28,9 +29,9 @@ const Login = () => {
       }
 
       if (data.username !== undefined) {
+        router.push(`/`);
         setAuthed(true);
         setUser(data);
-        router.push(`/`);
       }
     } catch (e) {
       setError(true);
