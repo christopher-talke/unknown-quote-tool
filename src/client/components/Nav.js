@@ -48,11 +48,12 @@ const Nav = () => {
       <style jsx>{`
         nav {
           text-align: center;
-          padding: 15px 0;
-          box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.06);
+          padding: 0px 0;
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.35);
         }
         nav h1.title {
           margin: 0;
+          margin-top: 5px;
         }
         ul {
           max-width: 960px;
@@ -67,6 +68,7 @@ const Nav = () => {
         nav div.nav-right {
           display: flex;
           flex-direction: row;
+          justify-items: center;
         }
         li {
           display: flex;
